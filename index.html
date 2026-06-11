@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Our WhatsApp Community</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #25D366;
+    --green-dark: #128C7E;
+    --green-light: #dcfce7;
+    --white: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-900: #111827;
+  }
+
+  html, body {
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: var(--gray-900);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO IMAGE ─── */
+  .hero-img-wrap {
+    width: 100%;
+    position: relative;
+    background: var(--gray-100);
+    overflow: hidden;
+    max-height: 420px;
+  }
+  .hero-img-wrap img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+  }
+  .hero-img-placeholder {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-img-placeholder svg { opacity: 0.3; }
+
+  /* ─── CONTENT ─── */
+  .content {
+    padding: 28px 20px 16px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: clamp(22px, 6vw, 30px);
+    line-height: 1.2;
+    color: var(--gray-900);
+    margin-bottom: 12px;
+  }
+
+  .page-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--gray-600);
+    margin-bottom: 28px;
+  }
+
+  /* ─── CTA BUTTON ─── */
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: filter 0.2s, transform 0.1s;
+    animation: pulse 2.5s ease-in-out infinite;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cta-btn:active { transform: scale(0.98); filter: brightness(0.95); }
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #2de870 0%, #25D366 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .cta-btn:hover::before { opacity: 1; }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+    50% { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+  }
+
+  .cta-btn svg { position: relative; z-index: 1; flex-shrink: 0; }
+  .cta-btn span { position: relative; z-index: 1; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 20px 20px 32px;
+    color: var(--gray-200);
+    font-size: 11px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .footer-at {
+    display: inline-block;
+    color: var(--gray-200);
+    font-size: 13px;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: color 0.2s;
+  }
+  .footer-at.active { color: var(--gray-400, #9ca3af); }
+
+  /* ─── ADMIN OVERLAY ─── */
+  #adminOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 900;
+    backdrop-filter: blur(2px);
+  }
+  #adminOverlay.show { display: flex; align-items: flex-start; justify-content: center; padding: 20px 0; overflow-y: auto; }
+
+  .admin-modal {
+    background: #fff;
+    width: 100%;
+    max-width: 460px;
+    margin: auto;
+    padding: 28px 24px 32px;
+    position: relative;
+    animation: slideUp 0.28s ease;
+  }
+  @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+  .admin-modal h2 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: var(--gray-900);
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: none; border: none;
+    cursor: pointer; font-size: 22px;
+    color: var(--gray-600);
+    line-height: 1;
+  }
+
+  /* ─── FORMS ─── */
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--gray-200);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--gray-900);
+    outline: none;
+    background: #fff;
+    transition: border-color 0.15s;
+    border-radius: 0;
+  }
+  .field input:focus, .field textarea:focus { border-color: var(--green); }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  .upload-box {
+    border: 2px dashed var(--gray-200);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+  .upload-box:hover { border-color: var(--green); background: var(--green-light); }
+  .upload-box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .upload-box p { font-size: 13px; color: var(--gray-600); margin-top: 6px; }
+
+  .tab-bar {
+    display: flex;
+    border-bottom: 2px solid var(--gray-200);
+    margin-bottom: 20px;
+    gap: 4px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 9px 4px;
+    background: none;
+    border: none;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--gray-600);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .tab-btn.active { color: var(--green-dark); border-bottom-color: var(--green); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .save-btn {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    border: none;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: filter 0.15s;
+    border-radius: 0;
+    margin-top: 8px;
+  }
+  .save-btn:hover { filter: brightness(1.07); }
+
+  .section-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--gray-700);
+    margin: 20px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--gray-100);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Toggle */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-row label { font-size: 13px; color: var(--gray-700); font-weight: 500; }
+  .toggle {
+    position: relative;
+    width: 40px; height: 22px;
+    flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .slider {
+    position: absolute;
+    inset: 0;
+    background: var(--gray-200);
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .slider::before {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    left: 3px; top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .toggle input:checked + .slider { background: var(--green); }
+  .toggle input:checked + .slider::before { transform: translateX(18px); }
+
+  /* Login */
+  .login-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    display: none;
+  }
+  .login-error.show { display: block; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--gray-900);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    border-radius: 4px;
+    z-index: 9999;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Preview image */
+  #previewImg {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: none;
+    margin-top: 8px;
+  }
+  #previewImg.show { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ═══ LANDING PAGE ═══ -->
+<main id="landingPage">
+
+  <div class="hero-img-wrap" id="heroWrap">
+    <div class="hero-img-placeholder" id="heroPlaceholder">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+        <rect width="80" height="80" rx="8" fill="white" fill-opacity="0.15"/>
+        <path d="M20 55L32 43l8 8 12-14 16 18H20z" fill="white" fill-opacity="0.4"/>
+        <circle cx="28" cy="30" r="5" fill="white" fill-opacity="0.5"/>
+      </svg>
+    </div>
+    <img id="heroImg" src="" alt="Community Hero" style="display:none;" />
+  </div>
+
+  <div class="content">
+    <h1 class="page-title" id="pageTitle">Join Our WhatsApp Community</h1>
+    <p class="page-desc" id="pageDesc">Get exclusive updates, tips, and connect with thousands of members. Tap below to join now — it's completely free!</p>
+
+    <button class="cta-btn" id="ctaBtn" onclick="handleCTA()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.122 1.529 5.851L0 24l6.335-1.505A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.967 0-3.804-.532-5.38-1.457l-.386-.228-3.762.894.952-3.663-.251-.4A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" fill="white"/>
+      </svg>
+      <span id="btnText">Join WhatsApp Community</span>
+    </button>
+  </div>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <span class="footer-at" id="footerAt" onclick="handleAtClick()">@</span>
+</footer>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══ ADMIN OVERLAY ═══ -->
+<div id="adminOverlay">
+  <div class="admin-modal">
+    <button class="close-btn" onclick="closeAdmin()">×</button>
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen">
+      <h2>Admin Login</h2>
+      <div class="login-error" id="loginError">Incorrect username or password.</div>
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="adminUser" placeholder="Enter username" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="adminPass" placeholder="Enter password" />
+      </div>
+      <button class="save-btn" onclick="doLogin()">Login</button>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="adminPanel" style="display:none;">
+      <h2>Admin Panel</h2>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('content',this)">Content</button>
+        <button class="tab-btn" onclick="switchTab('tracking',this)">Tracking</button>
+        <button class="tab-btn" onclick="switchTab('events',this)">Events</button>
+      </div>
+
+      <!-- CONTENT TAB -->
+      <div class="tab-panel active" id="tab-content">
+        <div class="section-title">Hero Image</div>
+        <div class="upload-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          <p>Tap to upload from gallery or media library</p>
+          <input type="file" accept="image/*" onchange="handleImageUpload(event)" />
+        </div>
+        <img id="previewImg" alt="Preview" />
+
+        <div class="section-title">Page Content</div>
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="adminTitle" placeholder="Page title" />
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <textarea id="adminDesc" placeholder="Page description"></textarea>
+        </div>
+        <div class="field">
+          <label>Button Text</label>
+          <input type="text" id="adminBtnText" placeholder="Join WhatsApp Community" />
+        </div>
+        <div class="field">
+          <label>WhatsApp Community Link</label>
+          <input type="text" id="adminWALink" placeholder="https://chat.whatsapp.com/xxxxxxxx" />
+        </div>
+        <button class="save-btn" onclick="saveContent()">Save Changes</button>
+      </div>
+
+      <!-- TRACKING TAB -->
+      <div class="tab-panel" id="tab-tracking">
+        <div class="section-title">Facebook Pixel</div>
+        <div class="field">
+          <label>Pixel ID</label>
+          <input type="text" id="pixelId" placeholder="e.g. 1234567890123456" />
+        </div>
+
+        <div class="section-title">Meta Conversions API (CAPI)</div>
+        <div class="field">
+          <label>CAPI Access Token</label>
+          <input type="text" id="capiToken" placeholder="Paste CAPI access token" />
+        </div>
+        <div class="field">
+          <label>Dataset ID</label>
+          <input type="text" id="datasetId" placeholder="e.g. 1234567890123456" />
+        </div>
+
+        <div class="section-title">Custom Pixel Code</div>
+        <div class="field">
+          <label>Custom Script / Code</label>
+          <textarea id="customPixel" placeholder="<!-- Paste custom pixel or tracking code here -->" style="min-height:100px; font-family:monospace; font-size:12px;"></textarea>
+        </div>
+        <button class="save-btn" onclick="saveTracking()">Save Tracking Settings</button>
+      </div>
+
+      <!-- EVENTS TAB -->
+      <div class="tab-panel" id="tab-events">
+        <div class="section-title">Event Configuration</div>
+        <div class="field">
+          <label>Default Event</label>
+          <select id="defaultEvent">
+            <option value="Subscribe">Subscribe</option>
+            <option value="Lead">Lead</option>
+            <option value="CompleteRegistration">CompleteRegistration</option>
+            <option value="Purchase">Purchase</option>
+            <option value="PageView">PageView</option>
+          </select>
+        </div>
+
+        <div class="section-title">Event On/Off</div>
+        <div class="toggle-row">
+          <label>PageView</label>
+          <label class="toggle"><input type="checkbox" id="ev-PageView" checked /><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <label>Subscribe</label>
+          <label class="toggle"><input type="checkbox" id="ev-Subscribe" checked /><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <label>Lead</label>
+          <label class="toggle"><input type="checkbox" id="ev-Lead" /><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <label>CompleteRegistration</label>
+          <label class="toggle"><input type="checkbox" id="ev-CompleteRegistration" /><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <label>Purchase</label>
+          <label class="toggle"><input type="checkbox" id="ev-Purchase" /><span class="slider"></span></label>
+        </div>
+        <button class="save-btn" onclick="saveEvents()" style="margin-top:20px;">Save Event Settings</button>
+      </div>
+
+    </div><!-- /adminPanel -->
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════
+//  STORAGE KEYS
+// ════════════════════════════════
+const KEYS = {
+  title: 'lp_title',
+  desc: 'lp_desc',
+  btn: 'lp_btn',
+  waLink: 'lp_wa',
+  heroImg: 'lp_hero',
+  pixel: 'lp_pixel',
+  capi: 'lp_capi',
+  dataset: 'lp_dataset',
+  custom: 'lp_custom',
+  defEvent: 'lp_defEvent',
+  events: 'lp_events',
+};
+
+// ════════════════════════════════
+//  LOAD SAVED CONTENT ON PAGE LOAD
+// ════════════════════════════════
+function loadPage() {
+  const title = ls(KEYS.title);
+  const desc = ls(KEYS.desc);
+  const btn = ls(KEYS.btn);
+  const hero = ls(KEYS.heroImg);
+
+  if (title) document.getElementById('pageTitle').textContent = title;
+  if (desc) document.getElementById('pageDesc').textContent = desc;
+  if (btn) document.getElementById('btnText').textContent = btn;
+  if (hero) {
+    document.getElementById('heroImg').src = hero;
+    document.getElementById('heroImg').style.display = 'block';
+    document.getElementById('heroPlaceholder').style.display = 'none';
+  }
+
+  // Fire PageView if enabled
+  const events = getEventSettings();
+  if (events['PageView']) firePixelEvent('PageView');
+
+  // Init pixel
+  initPixel();
+}
+
+function ls(key) { try { return localStorage.getItem(key); } catch(e) { return null; } }
+function lsSet(key, val) { try { localStorage.setItem(key, val); } catch(e) {} }
+
+// ════════════════════════════════
+//  WHATSAPP LINK TRANSFORMATION
+// ════════════════════════════════
+function buildWALink(rawLink) {
+  if (!rawLink) return null;
+  rawLink = rawLink.trim();
+
+  // Extract community/group code
+  // Handles: https://chat.whatsapp.com/XXXX or whatsapp://... etc.
+  const webPattern = /chat\.whatsapp\.com\/([A-Za-z0-9_-]+)/;
+  const match = rawLink.match(webPattern);
+
+  if (!match) {
+    // If it's already a deep link or unknown, return as-is
+    return rawLink;
+  }
+
+  const code = match[1];
+
+  // Try whatsapp://... deep link first (works in most native apps)
+  // For communities: whatsapp://invite?code=XXX
+  // For groups/links: same scheme works
+  const deepLink = `whatsapp://invite?code=${code}`;
+  const intentLink = `intent://invite?code=${code}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+  const intentBusiness = `intent://invite?code=${code}#Intent;scheme=whatsapp;package=com.whatsapp.w4b;end`;
+  const fallback = rawLink.startsWith('http') ? rawLink : `https://chat.whatsapp.com/${code}`;
+
+  return { deepLink, intentLink, intentBusiness, fallback, code };
+}
+
+function openWhatsApp(rawLink) {
+  if (!rawLink) { showToast('WhatsApp link not configured.'); return; }
+
+  const links = buildWALink(rawLink);
+  if (!links || typeof links === 'string') {
+    // unknown format, open directly
+    window.open(typeof links === 'string' ? links : rawLink, '_blank');
+    return;
+  }
+
+  const ua = navigator.userAgent || '';
+  const isAndroid = /android/i.test(ua);
+  const isIOS = /iphone|ipad|ipod/i.test(ua);
+  const isFBIAB = /FBAN|FBAV|Instagram|FB_IAB/i.test(ua);
+
+  if (isAndroid) {
+    // On Android, use Intent URL — browser handles fallback to Play Store automatically
+    // Try deep link first via iframe trick, fall back to intent
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = links.deepLink;
+    document.body.appendChild(iframe);
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+      // If still on page, try intent link
+      window.location.href = links.intentLink;
+    }, 800);
+    return;
+  }
+
+  if (isIOS) {
+    // On iOS, try whatsapp:// deep link, fall back to web link
+    const start = Date.now();
+    window.location.href = links.deepLink;
+    setTimeout(() => {
+      // If user is still here, app didn't open → open web link
+      if (Date.now() - start < 1500) {
+        window.open(links.fallback, '_blank');
+      }
+    }, 900);
+    return;
+  }
+
+  // Desktop / FB in-app browser / others
+  if (isFBIAB) {
+    // FB/IG in-app — they allow external app prompt; use direct link
+    window.open(links.fallback, '_blank');
+    return;
+  }
+
+  // Generic: try deep link first
+  const start = Date.now();
+  window.location.href = links.deepLink;
+  setTimeout(() => {
+    if (Date.now() - start < 1500) {
+      window.open(links.fallback, '_blank');
+    }
+  }, 900);
+}
+
+// ════════════════════════════════
+//  CTA HANDLER
+// ════════════════════════════════
+function handleCTA() {
+  const waLink = ls(KEYS.waLink);
+  const defEvent = ls(KEYS.defEvent) || 'Subscribe';
+  const events = getEventSettings();
+
+  // Fire event only ONCE per session (sessionStorage flag)
+  const flagKey = 'subscribe_event_fired';
+  const alreadyFired = sessionStorage.getItem(flagKey);
+
+  if (!alreadyFired && events[defEvent]) {
+    firePixelEvent(defEvent);
+    sessionStorage.setItem(flagKey, 'true');
+  }
+
+  openWhatsApp(waLink);
+}
+
+// ════════════════════════════════
+//  PIXEL / META EVENTS
+// ════════════════════════════════
+function initPixel() {
+  const pixelId = ls(KEYS.pixel);
+  if (!pixelId) return;
+
+  // Standard Facebook Pixel init
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', pixelId);
+
+  // Inject custom pixel code if any
+  const custom = ls(KEYS.custom);
+  if (custom && custom.trim()) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = custom;
+    // Move script tags to document
+    Array.from(wrapper.querySelectorAll('script')).forEach(s => {
+      const ns = document.createElement('script');
+      if (s.src) ns.src = s.src; else ns.textContent = s.textContent;
+      document.head.appendChild(ns);
+    });
+  }
+}
+
+function firePixelEvent(eventName) {
+  if (typeof fbq === 'function') {
+    const eventId = 'ev_' + eventName + '_' + Date.now();
+    fbq('track', eventName, {}, { eventID: eventId });
+  }
+
+  // CAPI server-side (best-effort from client — in production, fire from server)
+  const capiToken = ls(KEYS.capi);
+  const datasetId = ls(KEYS.dataset);
+  if (capiToken && datasetId) {
+    const eventId = 'ev_' + eventName + '_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const payload = {
+      data: [{
+        event_name: eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventId,
+        action_source: 'website',
+        event_source_url: window.location.href,
+        client_user_agent: navigator.userAgent
+      }]
+    };
+    fetch(`https://graph.facebook.com/v18.0/${datasetId}/events?access_token=${capiToken}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {}); // silent fail
+  }
+}
+
+function getEventSettings() {
+  try {
+    const saved = ls(KEYS.events);
+    return saved ? JSON.parse(saved) : { PageView: true, Subscribe: true, Lead: false, CompleteRegistration: false, Purchase: false };
+  } catch(e) {
+    return { PageView: true, Subscribe: true };
+  }
+}
+
+// ════════════════════════════════
+//  HIDDEN ADMIN (triple-tap @)
+// ════════════════════════════════
+let atTapCount = 0;
+let atTapTimer = null;
+
+function handleAtClick() {
+  atTapCount++;
+  clearTimeout(atTapTimer);
+  atTapTimer = setTimeout(() => { atTapCount = 0; }, 800);
+
+  if (atTapCount >= 3) {
+    atTapCount = 0;
+    openAdminLogin();
+  }
+}
+
+function openAdminLogin() {
+  document.getElementById('loginScreen').style.display = 'block';
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('adminUser').value = '';
+  document.getElementById('adminPass').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  document.getElementById('adminOverlay').classList.add('show');
+}
+
+function closeAdmin() {
+  document.getElementById('adminOverlay').classList.remove('show');
+}
+
+function doLogin() {
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value.trim();
+  if (u === 'aravind@890' && p === 'admin321') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    loadAdminFields();
+  } else {
+    document.getElementById('loginError').classList.add('show');
+  }
+}
+
+// Enter key on password
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('loginScreen').style.display !== 'none' && document.getElementById('adminOverlay').classList.contains('show')) {
+    doLogin();
+  }
+});
+
+// Close on overlay background click
+document.getElementById('adminOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeAdmin();
+});
+
+// ════════════════════════════════
+//  TABS
+// ════════════════════════════════
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ════════════════════════════════
+//  LOAD ADMIN FIELDS
+// ════════════════════════════════
+function loadAdminFields() {
+  document.getElementById('adminTitle').value = ls(KEYS.title) || '';
+  document.getElementById('adminDesc').value = ls(KEYS.desc) || '';
+  document.getElementById('adminBtnText').value = ls(KEYS.btn) || '';
+  document.getElementById('adminWALink').value = ls(KEYS.waLink) || '';
+  document.getElementById('pixelId').value = ls(KEYS.pixel) || '';
+  document.getElementById('capiToken').value = ls(KEYS.capi) || '';
+  document.getElementById('datasetId').value = ls(KEYS.dataset) || '';
+  document.getElementById('customPixel').value = ls(KEYS.custom) || '';
+
+  const defEvent = ls(KEYS.defEvent) || 'Subscribe';
+  document.getElementById('defaultEvent').value = defEvent;
+
+  const events = getEventSettings();
+  ['PageView','Subscribe','Lead','CompleteRegistration','Purchase'].forEach(ev => {
+    const el = document.getElementById('ev-' + ev);
+    if (el) el.checked = events[ev] !== undefined ? events[ev] : false;
+  });
+
+  // Show hero preview if saved
+  const hero = ls(KEYS.heroImg);
+  if (hero) {
+    document.getElementById('previewImg').src = hero;
+    document.getElementById('previewImg').classList.add('show');
+  }
+}
+
+// ════════════════════════════════
+//  IMAGE UPLOAD
+// ════════════════════════════════
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const data = ev.target.result;
+    // Show preview in admin
+    const prev = document.getElementById('previewImg');
+    prev.src = data;
+    prev.classList.add('show');
+    // Persist to localStorage (base64)
+    try {
+      lsSet(KEYS.heroImg, data);
+    } catch(err) {
+      showToast('Image too large for browser storage. Try a smaller image.');
+      return;
+    }
+    // Apply to page immediately
+    document.getElementById('heroImg').src = data;
+    document.getElementById('heroImg').style.display = 'block';
+    document.getElementById('heroPlaceholder').style.display = 'none';
+    showToast('Image updated!');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ════════════════════════════════
+//  SAVE FUNCTIONS
+// ════════════════════════════════
+function saveContent() {
+  const title = document.getElementById('adminTitle').value.trim();
+  const desc = document.getElementById('adminDesc').value.trim();
+  const btn = document.getElementById('adminBtnText').value.trim();
+  const wa = document.getElementById('adminWALink').value.trim();
+
+  if (title) { lsSet(KEYS.title, title); document.getElementById('pageTitle').textContent = title; }
+  if (desc) { lsSet(KEYS.desc, desc); document.getElementById('pageDesc').textContent = desc; }
+  if (btn) { lsSet(KEYS.btn, btn); document.getElementById('btnText').textContent = btn; }
+  if (wa) lsSet(KEYS.waLink, wa);
+
+  showToast('Content saved!');
+  setTimeout(() => closeAdmin(), 1000);
+}
+
+function saveTracking() {
+  lsSet(KEYS.pixel, document.getElementById('pixelId').value.trim());
+  lsSet(KEYS.capi, document.getElementById('capiToken').value.trim());
+  lsSet(KEYS.dataset, document.getElementById('datasetId').value.trim());
+  lsSet(KEYS.custom, document.getElementById('customPixel').value.trim());
+  showToast('Tracking settings saved!');
+  setTimeout(() => closeAdmin(), 1000);
+}
+
+function saveEvents() {
+  lsSet(KEYS.defEvent, document.getElementById('defaultEvent').value);
+  const evObj = {};
+  ['PageView','Subscribe','Lead','CompleteRegistration','Purchase'].forEach(ev => {
+    evObj[ev] = document.getElementById('ev-' + ev).checked;
+  });
+  lsSet(KEYS.events, JSON.stringify(evObj));
+  showToast('Event settings saved!');
+  setTimeout(() => closeAdmin(), 1000);
+}
+
+// ════════════════════════════════
+//  TOAST
+// ════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ════════════════════════════════
+//  INIT
+// ════════════════════════════════
+loadPage();
+</script>
+</body>
+</html>
